@@ -12,7 +12,7 @@ const ContentFilterPage = ({apiKey}) => {
     ]
 
     async function getContentFilterScore() {
-        const response = await fetch(`/api/content-filter/get-content-filter-score`, {
+        const response = await fetch(`https://www.openaitools.com/api/content-filter/get-content-filter-score`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

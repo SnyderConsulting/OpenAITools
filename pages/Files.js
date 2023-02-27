@@ -7,7 +7,7 @@ const FilesPage = ({apiKey}) => {
     const [stagedFile, setStagedFile] = useState()
 
     async function loadFiles() {
-        const response = await fetch(`/api/files/get-files`, {
+        const response = await fetch(`https://www.openaitools.com/api/files/get-files`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -23,7 +23,7 @@ const FilesPage = ({apiKey}) => {
 
     async function retrieveFileContent(fileId) {
         console.log(fileId)
-        const response = await fetch(`/api/files/retrieve-file-content`, {
+        const response = await fetch(`https://www.openaitools.com/api/files/retrieve-file-content`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -39,7 +39,7 @@ const FilesPage = ({apiKey}) => {
 
     async function deleteFile(fileId) {
         console.log(fileId)
-        const response = await fetch(`/api/files/delete-file`, {
+        const response = await fetch(`https://www.openaitools.com/api/files/delete-file`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -58,7 +58,7 @@ const FilesPage = ({apiKey}) => {
 
     async function uploadFile(file) {
         console.log(file)
-        const response = await fetch(`/api/files/upload-file`, {
+        const response = await fetch(`https://www.openaitools.com/api/files/upload-file`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

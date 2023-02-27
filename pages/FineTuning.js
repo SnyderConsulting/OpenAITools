@@ -6,7 +6,7 @@ const FineTuningPage = ({apiKey}) => {
     const [fineTunes, setFineTunes] = useState([])
 
     async function loadFineTunes() {
-        const response = await fetch(`/api/fine-tunes/get-fine-tunes`, {
+        const response = await fetch(`https://www.openaitools.com/api/fine-tunes/get-fine-tunes`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -23,7 +23,7 @@ const FineTuningPage = ({apiKey}) => {
     async function getFineTuneDetails(fileId) {
         console.log(fileId)
 
-        const response = await fetch(`/api/fine-tunes/retrieve-fine-tune`, {
+        const response = await fetch(`https://www.openaitools.com/api/fine-tunes/retrieve-fine-tune`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -40,7 +40,7 @@ const FineTuningPage = ({apiKey}) => {
 
     async function deleteFineTune(model) {
         console.log(model)
-        const response = await fetch(`/api/fine-tunes/delete-fine-tune`, {
+        const response = await fetch(`https://www.openaitools.com/api/fine-tunes/delete-fine-tune`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

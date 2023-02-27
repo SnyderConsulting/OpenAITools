@@ -6,7 +6,7 @@ const ModelsPage = ({apiKey}) => {
     const [models, setModels] = useState([])
 
     async function loadModels() {
-        const response = await fetch(`/api/models/get-models`, {
+        const response = await fetch(`https://www.openaitools.com/api/models/get-models`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
