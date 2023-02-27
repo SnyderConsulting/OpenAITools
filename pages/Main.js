@@ -4,6 +4,7 @@ import FilesPage from "./Files";
 import FineTuningPage from "./FineTuning";
 import ModelsPage from "./Models";
 import ContentFilterPage from "./ContentFilter";
+import {Header} from "../components/Header";
 
 function Main() {
     const [apiKey, setApiKey] = useState()
@@ -18,13 +19,16 @@ function Main() {
 
 
     return (
-        <HStack h={"100vh"} w={"100vw"}>
-            <NavMenu pages={pages} selectedPage={selectedPage} setSelectedPage={setSelectedPage}/>
-            <VStack height={"100%"} width={"100%"}>
-                <APIKeyInput apiKey={apiKey} setApiKey={setApiKey}/>
-                {pages[selectedPage].component}
-            </VStack>
-        </HStack>
+        <VStack>
+            <Header/>
+            <HStack h={"100vh"} w={"100vw"}>
+                <NavMenu pages={pages} selectedPage={selectedPage} setSelectedPage={setSelectedPage}/>
+                <VStack height={"100%"} width={"100%"}>
+                    <APIKeyInput apiKey={apiKey} setApiKey={setApiKey}/>
+                    {pages[selectedPage].component}
+                </VStack>
+            </HStack>
+        </VStack>
     );
 }
 
