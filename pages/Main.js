@@ -1,4 +1,4 @@
-import {Box, Button, HStack, Input, Text, VStack} from "@chakra-ui/react";
+import {Button, HStack, Input, Text, VStack} from "@chakra-ui/react";
 import {useState} from "react";
 import FilesPage from "./Files";
 import FineTuningPage from "./FineTuning";
@@ -10,11 +10,14 @@ function Main() {
     const [apiKey, setApiKey] = useState()
     const [selectedPage, setSelectedPage] = useState(0)
 
+    const isLocalDevelopment = false
+    const baseUrl = isLocalDevelopment ? "/api" : "https://www.openaitools.com/api"
+
     const pages = [
-        {name: "Files", component: <FilesPage apiKey={apiKey}/>},
-        {name: "Fine-Tunes", component: <FineTuningPage apiKey={apiKey}/>},
-        {name: "Models", component: <ModelsPage apiKey={apiKey}/>},
-        {name: "Content Filter", component: <ContentFilterPage apiKey={apiKey}/>},
+        {name: "Files", component: <FilesPage apiKey={apiKey} baseUrl={baseUrl}/>},
+        {name: "Fine-Tunes", component: <FineTuningPage apiKey={apiKey} baseUrl={baseUrl}/>},
+        {name: "Models", component: <ModelsPage apiKey={apiKey} baseUrl={baseUrl}/>},
+        {name: "Content Filter", component: <ContentFilterPage apiKey={apiKey} baseUrl={baseUrl}/>},
     ]
 
 

@@ -1,13 +1,13 @@
 import {useState} from "react";
 import {Box, Button, HStack, Text, VStack} from "@chakra-ui/react";
 
-const FilesPage = ({apiKey}) => {
+const FilesPage = ({apiKey, baseUrl}) => {
 
     const [files, setFiles] = useState([])
     const [stagedFile, setStagedFile] = useState()
 
     async function loadFiles() {
-        const response = await fetch(`https://www.openaitools.com/api/files/get-files`, {
+        const response = await fetch(`${baseUrl}/files/get-files`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -23,7 +23,7 @@ const FilesPage = ({apiKey}) => {
 
     async function retrieveFileContent(fileId) {
         console.log(fileId)
-        const response = await fetch(`https://www.openaitools.com/api/files/retrieve-file-content`, {
+        const response = await fetch(`${baseUrl}/files/retrieve-file-content`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -39,7 +39,7 @@ const FilesPage = ({apiKey}) => {
 
     async function deleteFile(fileId) {
         console.log(fileId)
-        const response = await fetch(`https://www.openaitools.com/api/files/delete-file`, {
+        const response = await fetch(`${baseUrl}/files/delete-file`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -58,7 +58,7 @@ const FilesPage = ({apiKey}) => {
 
     async function uploadFile(file) {
         console.log(file)
-        const response = await fetch(`https://www.openaitools.com/api/files/upload-file`, {
+        const response = await fetch(`${baseUrl}/files/upload-file`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -75,15 +75,15 @@ const FilesPage = ({apiKey}) => {
         }
     }
 
-    loadFiles()
-
     return (
         <VStack h={"100%"} w={"100%"} paddingY={"128px"}>
-            {/*<Button style={{marginTop: "128px"}}*/}
-            {/*        onClick={() => {loadFiles()}}*/}
-            {/*>*/}
-            {/*    Get Files*/}
-            {/*</Button>*/}
+            <Button style={{marginTop: "128px", marginBottom: "48px"}}
+                    onClick={() => {
+                        loadFiles()
+                    }}
+            >
+                Load Files
+            </Button>
             {
                 files.length > 0 &&
                 <Text>{`Files (${files.map(file => file.bytes).reduce((prev, next) => prev + next).toLocaleString("en-US")} / 1,073,741,824 bytes)`}</Text>

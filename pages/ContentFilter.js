@@ -1,7 +1,7 @@
-import {Box, Button, HStack, Text, Textarea, VStack} from "@chakra-ui/react";
+import {Button, Text, Textarea, VStack} from "@chakra-ui/react";
 import {useState} from "react";
 
-const ContentFilterPage = ({apiKey}) => {
+const ContentFilterPage = ({apiKey, baseUrl}) => {
 
     const [content, setContent] = useState()
     const [score, setScore] = useState()
@@ -12,7 +12,7 @@ const ContentFilterPage = ({apiKey}) => {
     ]
 
     async function getContentFilterScore() {
-        const response = await fetch(`https://www.openaitools.com/api/content-filter/get-content-filter-score`, {
+        const response = await fetch(`${baseUrl}/content-filter/get-content-filter-score`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

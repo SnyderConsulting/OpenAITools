@@ -1,12 +1,12 @@
-import {Box, Button, HStack, Text, VStack} from "@chakra-ui/react";
+import {Box, Button, Text, VStack} from "@chakra-ui/react";
 import {useState} from "react";
 
-const ModelsPage = ({apiKey}) => {
+const ModelsPage = ({apiKey, baseUrl}) => {
 
     const [models, setModels] = useState([])
 
     async function loadModels() {
-        const response = await fetch(`https://www.openaitools.com/api/models/get-models`, {
+        const response = await fetch(`${baseUrl}/models/get-models`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -20,15 +20,15 @@ const ModelsPage = ({apiKey}) => {
         setModels(data.result)
     }
 
-    loadModels()
-
     return (
         <VStack h={"100%"} w={"100%"} paddingY={"128px"}>
-            {/*<Button style={{marginTop: "128px"}}*/}
-            {/*        onClick={() => {loadModels()}}*/}
-            {/*>*/}
-            {/*    Get Models*/}
-            {/*</Button>*/}
+            <Button style={{marginTop: "128px", marginBottom: "48px"}}
+                    onClick={() => {
+                        loadModels()
+                    }}
+            >
+                Load Models
+            </Button>
             <Text>Models</Text>
             <VStack spacing={"16px"} maxHeight={"500px"} overflow='scroll'>
                 {models.map((model) => {

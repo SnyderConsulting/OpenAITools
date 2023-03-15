@@ -1,12 +1,12 @@
 import {Box, Button, HStack, Text, VStack} from "@chakra-ui/react";
 import {useState} from "react";
 
-const FineTuningPage = ({apiKey}) => {
+const FineTuningPage = ({apiKey, baseUrl}) => {
 
     const [fineTunes, setFineTunes] = useState([])
 
     async function loadFineTunes() {
-        const response = await fetch(`https://www.openaitools.com/api/fine-tunes/get-fine-tunes`, {
+        const response = await fetch(`${baseUrl}/fine-tunes/get-fine-tunes`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -23,7 +23,7 @@ const FineTuningPage = ({apiKey}) => {
     async function getFineTuneDetails(fileId) {
         console.log(fileId)
 
-        const response = await fetch(`https://www.openaitools.com/api/fine-tunes/retrieve-fine-tune`, {
+        const response = await fetch(`${baseUrl}/fine-tunes/retrieve-fine-tune`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -40,7 +40,7 @@ const FineTuningPage = ({apiKey}) => {
 
     async function deleteFineTune(model) {
         console.log(model)
-        const response = await fetch(`https://www.openaitools.com/api/fine-tunes/delete-fine-tune`, {
+        const response = await fetch(`${baseUrl}/fine-tunes/delete-fine-tune`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -57,15 +57,15 @@ const FineTuningPage = ({apiKey}) => {
         // }
     }
 
-    loadFineTunes()
-
     return (
         <VStack h={"100%"} w={"100%"} paddingY={"128px"}>
-            {/*<Button style={{marginTop: "128px"}}*/}
-            {/*        onClick={() => {loadFineTunes()}}*/}
-            {/*>*/}
-            {/*    Get Fine-Tunes*/}
-            {/*</Button>*/}
+            <Button style={{marginTop: "128px", marginBottom: "48px"}}
+                    onClick={() => {
+                        loadFineTunes()
+                    }}
+            >
+                Load Fine-Tunes
+            </Button>
             <Text>Fine Tunes</Text>
             <VStack spacing={"16px"} maxHeight={"500px"} overflow='scroll'>
                 {fineTunes.map((fineTune) => {
