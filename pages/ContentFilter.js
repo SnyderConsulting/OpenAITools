@@ -4,23 +4,33 @@ import {useState} from "react";
 const ContentFilterPage = ({apiKey, baseUrl}) => {
 
     const [content, setContent] = useState()
-    const [sexualFlag, setSexualFlag] = useState()
-    const [hateFlag, setHateFlag] = useState()
-    const [violenceFlag, setViolenceFlag] = useState()
-    const [selfHarmFlag, setSelfHarmFlag] = useState()
-    const [sexualMinorsFlag, setSexualMinorsFlag] = useState()
-    const [hateThreateningFlag, setHateThreateningFlag] = useState()
-    const [violenceGraphicFlag, setViolenceGraphicFlag] = useState()
+
+    //Flags
     const [flagged, setFlagged] = useState()
+    const [hateFlag, setHateFlag] = useState()
+    const [hateThreateningFlag, setHateThreateningFlag] = useState()
+    const [harassmentFlag, setHarassmentFlag] = useState()
+    const [harassmentThreateningFlag, setHarassmentThreateningFlag] = useState()
+    const [selfHarmFlag, setSelfHarmFlag] = useState()
+    const [selfHarmIntentFlag, setSelfHarmIntentFlag] = useState()
+    const [selfHarmInstructionsFlag, setSelfHarmInstructionsFlag] = useState()
+    const [sexualFlag, setSexualFlag] = useState()
+    const [sexualMinorsFlag, setSexualMinorsFlag] = useState()
+    const [violenceFlag, setViolenceFlag] = useState()
+    const [violenceGraphicFlag, setViolenceGraphicFlag] = useState()
 
     const clearAll = () => {
         setFlagged(undefined)
-        setSexualFlag(undefined)
         setHateFlag(undefined)
-        setViolenceFlag(undefined)
-        setSelfHarmFlag(undefined)
-        setSexualMinorsFlag(undefined)
         setHateThreateningFlag(undefined)
+        setHarassmentFlag(undefined)
+        setHarassmentThreateningFlag(undefined)
+        setSelfHarmFlag(undefined)
+        setSelfHarmIntentFlag(undefined)
+        setSelfHarmInstructionsFlag(undefined)
+        setSexualFlag(undefined)
+        setSexualMinorsFlag(undefined)
+        setViolenceFlag(undefined)
         setViolenceGraphicFlag(undefined)
     }
 
@@ -37,14 +47,19 @@ const ContentFilterPage = ({apiKey, baseUrl}) => {
         });
         const data = await response.json();
         console.log(data.result)
-        setSexualFlag(data.result.categories["sexual"])
-        setHateFlag(data.result.categories["hate"])
-        setViolenceFlag(data.result.categories["violence"])
-        setSelfHarmFlag(data.result.categories["self-harm"])
-        setSexualMinorsFlag(data.result.categories["sexual/minors"])
-        setHateThreateningFlag(data.result.categories["hate/threatening"])
-        setViolenceGraphicFlag(data.result.categories["violence/graphic"])
+
         setFlagged(data.result.flagged)
+        setHateFlag(data.result.categories["hate"])
+        setHateThreateningFlag(data.result.categories["hate/threatening"])
+        setHarassmentFlag(data.result.categories["harassment"])
+        setHarassmentThreateningFlag(data.result.categories["harassment/threatening"])
+        setSelfHarmFlag(data.result.categories["self-harm"])
+        setSelfHarmIntentFlag(data.result.categories["self-harm/intent"])
+        setSelfHarmInstructionsFlag(data.result.categories["self-harm/instructions"])
+        setSexualFlag(data.result.categories["sexual"])
+        setSexualMinorsFlag(data.result.categories["sexual/minors"])
+        setViolenceFlag(data.result.categories["violence"])
+        setViolenceGraphicFlag(data.result.categories["violence/graphic"])
     }
 
     return (
@@ -68,12 +83,16 @@ const ContentFilterPage = ({apiKey, baseUrl}) => {
                 flagged && (
                     <>
                         <Text>Flagged for the following reasons:</Text>
-                        {sexualFlag && <Text>Sexual Content</Text>}
                         {hateFlag && <Text>Hateful Content</Text>}
-                        {violenceFlag && <Text>Violent Content</Text>}
-                        {selfHarmFlag && <Text>Self-Harm Content</Text>}
-                        {sexualMinorsFlag && <Text>Sexual/Minors Content</Text>}
                         {hateThreateningFlag && <Text>Hateful/Threatening Content</Text>}
+                        {harassmentFlag && <Text>Harassment Content</Text>}
+                        {harassmentThreateningFlag && <Text>Harassment/Threatening Content</Text>}
+                        {selfHarmFlag && <Text>Self-Harm Content</Text>}
+                        {selfHarmIntentFlag && <Text>Self-Harm Intent Content</Text>}
+                        {selfHarmInstructionsFlag && <Text>Self-Harm Instruction Content</Text>}
+                        {sexualFlag && <Text>Sexual Content</Text>}
+                        {sexualMinorsFlag && <Text>Sexual/Minors Content</Text>}
+                        {violenceFlag && <Text>Violent Content</Text>}
                         {violenceGraphicFlag && <Text>Graphically Violent Content</Text>}
                     </>
                 )
