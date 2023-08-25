@@ -1,5 +1,5 @@
 import {useState} from "react";
-import {Box, Button, HStack, Text, VStack} from "@chakra-ui/react";
+import {Box, Button, HStack, SimpleGrid, Text, useBreakpointValue, VStack} from "@chakra-ui/react";
 
 const FilesPage = ({apiKey, baseUrl}) => {
 
@@ -75,15 +75,20 @@ const FilesPage = ({apiKey, baseUrl}) => {
         }
     }
 
+    const columnCount = useBreakpointValue({base: 1, lg: 2, xl: 3});
+
     return (
-        <VStack h={"100%"} w={"100%"} paddingY={"128px"}>
-            <Button style={{marginTop: "128px", marginBottom: "48px"}}
-                    onClick={() => {
-                        loadFiles()
-                    }}
-            >
-                Load Files
-            </Button>
+        <VStack h={"100%"} w={"100%"} paddingY={"128px"} spacing={8}>
+            <Box>
+                <Button style={{marginTop: "128px", marginBottom: "48px"}}
+                        onClick={() => {
+                            loadFiles()
+                        }}
+                >
+                    Load Files
+                </Button>
+            </Box>
+
             {
                 files.length > 0 &&
                 <Text>{`Files (${files.map(file => file.bytes).reduce((prev, next) => prev + next).toLocaleString("en-US")} / 1,073,741,824 bytes)`}</Text>
@@ -92,7 +97,7 @@ const FilesPage = ({apiKey, baseUrl}) => {
                 files.length === 0 &&
                 <Text>Files</Text>
             }
-            <VStack spacing={"16px"} maxHeight={"500px"} overflow='scroll'>
+            <SimpleGrid columns={columnCount} spacing={10}>
                 {files.map((file) => {
                     return (
                         <FileCard
@@ -102,7 +107,7 @@ const FilesPage = ({apiKey, baseUrl}) => {
                         />
                     )
                 })}
-            </VStack>
+            </SimpleGrid>
 
             <input type="file" id="file-selector" accept=".jsonl" onChange={(e) => {
                 const fileList = e.target.files;
@@ -115,10 +120,15 @@ const FilesPage = ({apiKey, baseUrl}) => {
                 // reader.readAsText(file);
                 setStagedFile(file)
             }}/>
-            {
-                uploadFile &&
-                    <Button onClick={() => {uploadFile(stagedFile)}}>Upload File</Button>
-            }
+
+            <Box>
+                {
+                    uploadFile &&
+                    <Button onClick={() => {
+                        uploadFile(stagedFile)
+                    }}>Upload File</Button>
+                }
+            </Box>
         </VStack>
     )
 }
@@ -130,10 +140,9 @@ const timeToDate = (time) => {
 }
 
 
-
 const FileCard = ({file, getFileDetails, deleteFile}) => {
     return (
-        <Box maxW='sm' borderWidth='1px' borderRadius='lg' padding={"24px"}>
+        <Box minW={{base: "full", lg: "sm"}} borderWidth='1px' borderRadius='lg' padding={"24px"}>
             <VStack alignItems={"start"} spacing={"8px"}>
                 <Text>ID: {file.id}</Text>
                 <Text>Purpose: {file.purpose}</Text>
@@ -143,8 +152,12 @@ const FileCard = ({file, getFileDetails, deleteFile}) => {
                 <Text>Status: {file.status}</Text>
                 <Text>Status Details: {file.status_details}</Text>
                 <HStack width={"100%"} display={"flex"} justifyContent={"end"} spacing={"16px"}>
-                    <Button onClick={() => {getFileDetails(file.id)}}>Get Details</Button>
-                    <Button colorScheme='red' onClick={() => {deleteFile(file.id)}}>Delete</Button>
+                    <Button onClick={() => {
+                        getFileDetails(file.id)
+                    }}>Get Details</Button>
+                    <Button colorScheme='red' onClick={() => {
+                        deleteFile(file.id)
+                    }}>Delete</Button>
                 </HStack>
             </VStack>
         </Box>

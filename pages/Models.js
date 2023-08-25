@@ -1,4 +1,4 @@
-import {Box, Button, Text, VStack} from "@chakra-ui/react";
+import {Box, Button, SimpleGrid, Text, useBreakpointValue, VStack} from "@chakra-ui/react";
 import {useState} from "react";
 
 const ModelsPage = ({apiKey, baseUrl}) => {
@@ -20,17 +20,24 @@ const ModelsPage = ({apiKey, baseUrl}) => {
         setModels(data.result)
     }
 
+    const columnCount = useBreakpointValue({base: 1, lg: 2, xl: 3});
+
     return (
-        <VStack h={"100%"} w={"100%"} paddingY={"128px"}>
-            <Button style={{marginTop: "128px", marginBottom: "48px"}}
-                    onClick={() => {
-                        loadModels()
-                    }}
-            >
-                Load Models
-            </Button>
+        <VStack h={"100%"} w={"100%"} paddingY={"128px"} spacing={8}>
+
+            <Box>
+                <Button style={{marginTop: "128px", marginBottom: "48px"}}
+                        onClick={() => {
+                            loadModels()
+                        }}
+                >
+                    Load Models
+                </Button>
+            </Box>
+
             <Text>Models</Text>
-            <VStack spacing={"16px"} maxHeight={"500px"} overflow='scroll'>
+
+            <SimpleGrid columns={columnCount} spacing={10}>
                 {models.map((model) => {
                     return (
                         <ModelCard
@@ -38,7 +45,7 @@ const ModelsPage = ({apiKey, baseUrl}) => {
                         />
                     )
                 })}
-            </VStack>
+            </SimpleGrid>
         </VStack>
     )
 }

@@ -1,4 +1,4 @@
-import {Box, Button, HStack, Text, VStack} from "@chakra-ui/react";
+import {Box, Button, HStack, SimpleGrid, Text, useBreakpointValue, VStack} from "@chakra-ui/react";
 import {useState} from "react";
 
 const FineTuningPage = ({apiKey, baseUrl}) => {
@@ -57,17 +57,22 @@ const FineTuningPage = ({apiKey, baseUrl}) => {
         // }
     }
 
+    const columnCount = useBreakpointValue({base: 1, lg: 2, xl: 3});
+
     return (
-        <VStack h={"100%"} w={"100%"} paddingY={"128px"}>
-            <Button style={{marginTop: "128px", marginBottom: "48px"}}
-                    onClick={() => {
-                        loadFineTunes()
-                    }}
-            >
-                Load Fine-Tunes
-            </Button>
+        <VStack h={"100%"} w={"100%"} paddingY={"128px"} spacing={8}>
+            <Box>
+                <Button style={{marginTop: "128px", marginBottom: "48px"}}
+                        onClick={() => {
+                            loadFineTunes()
+                        }}
+                >
+                    Load Fine-Tunes
+                </Button>
+            </Box>
+
             <Text>Fine Tunes</Text>
-            <VStack spacing={"16px"} maxHeight={"500px"} overflow='scroll'>
+            <SimpleGrid columns={columnCount} spacing={10}>
                 {fineTunes.map((fineTune) => {
                     return (
                         <FineTuneCard
@@ -77,7 +82,7 @@ const FineTuningPage = ({apiKey, baseUrl}) => {
                         />
                     )
                 })}
-            </VStack>
+            </SimpleGrid>
         </VStack>
     )
 }
@@ -93,7 +98,7 @@ const timeToDate = (time) => {
 const FineTuneCard = ({fineTune, getFineTuneDetails, deleteFineTune}) => {
     console.log(fineTune.fine_tuned_model)
     return (
-        <Box maxW='sm' borderWidth='1px' borderRadius='lg' padding={"24px"}>
+        <Box maxW='sm' minw='sm' borderWidth='1px' borderRadius='lg' padding={"24px"}>
             <VStack alignItems={"start"} spacing={"8px"}>
                 <Text>ID: {fineTune.id}</Text>
                 <Text>Object: {fineTune.object}</Text>
