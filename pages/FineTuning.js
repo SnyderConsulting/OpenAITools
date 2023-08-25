@@ -6,7 +6,7 @@ const FineTuningPage = ({apiKey, baseUrl}) => {
     const [fineTunes, setFineTunes] = useState([])
 
     async function loadFineTunes() {
-        const response = await fetch(`${baseUrl}/fine-tunes/get-fine-tunes`, {
+        const response = await fetch(`${baseUrl}/legacy/fine-tunes-legacy/get-fine-tunes-legacy`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -23,7 +23,7 @@ const FineTuningPage = ({apiKey, baseUrl}) => {
     async function getFineTuneDetails(fileId) {
         console.log(fileId)
 
-        const response = await fetch(`${baseUrl}/fine-tunes/retrieve-fine-tune`, {
+        const response = await fetch(`${baseUrl}/legacy/fine-tunes-legacy/retrieve-fine-tune-legacy`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -40,7 +40,7 @@ const FineTuningPage = ({apiKey, baseUrl}) => {
 
     async function deleteFineTune(model) {
         console.log(model)
-        const response = await fetch(`${baseUrl}/fine-tunes/delete-fine-tune`, {
+        const response = await fetch(`${baseUrl}/legacy/fine-tunes-legacy/delete-fine-tune-legacy`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

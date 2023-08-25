@@ -1,42 +1,16 @@
-import {Configuration, OpenAIApi} from "openai";
+import fs from "fs";
+import {Configuration, OpenAIApi} from 'openai';
 
 export default async function (req, res) {
+    const configuration = new Configuration({apiKey: req.body.apiKey});
+    const openai = new OpenAIApi(configuration);
 
-    console.log(req.body.file)
-    console.log(req.body.apiKey)
+    const file = fs.createReadStream(req.body.fileName);
+    const purpose = req.body.purpose;
 
-    const fs = require('fs');
+    const response = await openai.files.create({file, purpose});
 
-    async function uploadFile(file) {
-        console.log(file)
+    console.log(response.data);
 
-        const configuration = new Configuration({
-            apiKey: req.body.apiKey
-        });
-        const openai = new OpenAIApi(configuration);
-        const response = await openai.createFile(
-            fs.createReadStream("completions.jsonl"),
-            "fine-tune")
-
-        console.log(response.data)
-
-        res.status(200).json({
-            result: response.data
-        });
-    }
-
-    let data = "{\"prompt\":\"How many are in a dozen?\", \"completion\":\"12\"}";
-
-    fs.writeFile("completions.jsonl", data, (err) => {
-        if (err)
-            console.log(err);
-        else {
-            console.log("File written successfully\n");
-            console.log("The written has the following contents:");
-            console.log(fs.readFileSync("completions.jsonl", "utf8"));
-            uploadFile("completions.jsonl")
-        }
-    });
-
-
-}
+    res.status(200).json({result: response.data});
+};

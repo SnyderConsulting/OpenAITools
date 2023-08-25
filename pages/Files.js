@@ -7,7 +7,7 @@ const FilesPage = ({apiKey, baseUrl}) => {
     const [stagedFile, setStagedFile] = useState()
 
     async function loadFiles() {
-        const response = await fetch(`${baseUrl}/files/get-files`, {
+        const response = await fetch(`${baseUrl}/legacy/files-legacy/get-files-legacy`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -23,7 +23,7 @@ const FilesPage = ({apiKey, baseUrl}) => {
 
     async function retrieveFileContent(fileId) {
         console.log(fileId)
-        const response = await fetch(`${baseUrl}/files/retrieve-file-content`, {
+        const response = await fetch(`${baseUrl}/legacy/files-legacy/retrieve-file-content-legacy`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -39,7 +39,7 @@ const FilesPage = ({apiKey, baseUrl}) => {
 
     async function deleteFile(fileId) {
         console.log(fileId)
-        const response = await fetch(`${baseUrl}/files/delete-file`, {
+        const response = await fetch(`${baseUrl}/legacy/files-legacy/delete-file-legacy`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -58,7 +58,7 @@ const FilesPage = ({apiKey, baseUrl}) => {
 
     async function uploadFile(file) {
         console.log(file)
-        const response = await fetch(`${baseUrl}/files/upload-file`, {
+        const response = await fetch(`${baseUrl}/legacy/files-legacy/upload-file-legacy`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

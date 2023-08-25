@@ -6,7 +6,7 @@ export default async function (req, res) {
 
     const fileId = req.body.fileId;
 
-    const response = await openai.files.del(fileId);
+    const response = await openai.files.retrieve(fileId);
 
     console.log(response.data);
 

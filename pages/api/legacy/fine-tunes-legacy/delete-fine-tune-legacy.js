@@ -1,5 +1,3 @@
-import {Configuration, OpenAIApi} from "openai";
-
 export default async function (req, res) {
 
     console.log(req.body)

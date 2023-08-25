@@ -4,9 +4,7 @@ export default async function (req, res) {
     const configuration = new Configuration({apiKey: req.body.apiKey});
     const openai = new OpenAIApi(configuration);
 
-    const fileId = req.body.fileId;
-
-    const response = await openai.files.del(fileId);
+    const response = await openai.files.list();
 
     console.log(response.data);
 
